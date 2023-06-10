@@ -1,9 +1,11 @@
-# ts-formatter
-A simple string formatter written in typescript with jest testing
+# TS-Formatter: An Intuitive String Formatter
 
-## Code
+TS-Formatter is a user-friendly string formatter developed using TypeScript and Jest Testing. It allows you to insert data dynamically into strings using a simple formatting syntax.
+
+## Sample Usage
+
 ```ts
-import { Formatter } from 'ts-formatter';
+import { Formatter } from \'ts-formatter\';
 
 const formatString = "Hello {0}!";
 const input = ["World"];
@@ -11,63 +13,67 @@ const input = ["World"];
 const format = new Formatter();
 
 console.log(format.format(formatString, input)); 
-// Hello World!
+// Output: Hello World!
 ```
 
-## Examples
-| Format | Input | Output |
+## Example Scenarios
+
+| Format Template | Input | Output |
 | - | - | - |
 | `"Hello {0}!"` | `["World"]` | `"Hello World"` |
-| `"Hello {0}! The time is {1:time}!"` | `["World", "2023-06-09T21:05:11.764Z"]` | `"Hello World! The time is 2:05 PM!"` |
-| `"Core reactor is at {2:percent}! Current Reactor Heats:{{ Name:{0:upper} Temp:{1:decimal:2}\n}}"` | `[["Main reactor", "Sub reactor"], ["23.5432","63.2"], "23.0"]` | `"Core reactor is at 23%! Current Reactor Heats: Name:Main reactor Temp:23.54\n  Name:Sub reactor Temp:63.20\n "` |
+| `"Hello {0}! The time is {1:date}!"` | `["World", "2023-06-09T21:05:11.764Z"]` | `"Hello World! The time is 2:05 PM!"` |
+| `"Core reactor is at {2:percent}! Current Reactor Heats:{{ Name:{0:upper} Temp:{1:decimal:2}}}"` | `[["Main reactor", "Sub reactor"], ["23.5432","63.2"], "23.0"]` | `"Core reactor is at 23%! Current Reactor Heats: Name:Main reactor Temp:23.54 Name:Sub reactor Temp:63.20"` |
 | `"The first time to do is {0:0}!"` | `[["eat","sleep","work"]]` | `"The first time to do is eat!"` |
-# Building the Inputs
-*There are two inputs to the formatter.*
-## The Format String
 
-This is a string that contains the expected output text, to add values you use the `{}` operator. Keep in mind you can not use these characters in the string, if you wish to use them you must use alternatives like `[]`. 
+# Constructing the Inputs
+
+There are two vital components to using the formatter: the Format String and the Value String.
+
+## Format String
+
+The format string contains the expected output text, with `{}` operators to insert values. Please note, the `{}` characters cannot be used literally in the string. Alternative characters like `[]` should be used instead. 
 
 Example:
 ```
-Using Strings: "Hello {0}"  + ["World"] = "Hello World"
-Format types: "The time is {0:time}" + ["2023-06-09T21:05:11.764Z"] = "The time is 2:05 PM"
-Index into arrays: "The first time to do is {0:0}!" + [["eat","sleep","work"]] = "The first time to do is eat!"
+String Inputs: "Hello {0}"  + ["World"] = "Hello World"
+Type Formats: "The time is {0:date}" + ["2023-06-09T21:05:11.764Z"] = "The time is 2:05 PM"
+Array Inputs: "The first time to do is {0:0}!" + [["eat","sleep","work"]] = "The first time to do is eat!"
 ```
 
-If the user wishes to itterate over an array and display repeat the format for every entry in the array they may use the double `{{}}` operator. You can put another format string inside the double operator and it will provide the new format string for every variable in the array. You can provide multiple arrays and it will work with an increasing index on both.  To refrence contents in the format string you can follow the parameter spec.
+For iterating over an array and repeating the format for every entry, use the double `{{}}` operator. It accepts another format string inside, supplying a new format string for every variable in the array. The formatter can handle multiple arrays and will automatically increment the index for each one. 
 
-*keep in mind: if you do use the `{{}}` operator and the provided arrays are of different length, it will repeat based on the size of the largest array returning and empty string for all other arrays*
+Do note, if the `{{}}` operator is used and the provided arrays have differing lengths, the formatter will iterate based on the largest array\'s size, returning an empty string for all shorter arrays.
+
 ## Parameters
- Each parameter is delimitated by the `:` symbol. To prevent weird behavior it is recomened to format them without including white space. 
- 
- For example:
 
-**GOOD**
+Each parameter is delimited by the `:` symbol. Avoid including white spaces for better formatting.
+
+**Recommended**
 ```
-"The current time is {0:time} and my battery is at {2:percent}."
+"The current time is {0:date} and my battery is at {2:percent}."
 ```
-**BAD**
+**Not Recommended**
 ```
 "The current time is {0: time} and my battery is at { 2 :percent }."
  ```
 
-1. The first parameter of every variable is always a number. This refrences the position of the argument that is being retrieved. If this is an array, the next parameter must be another number, unless it is inside a double `{{}}` operator, in which case it will be auto set by the itterator.
-2. The second parameter, after the potential array indexor, is an optional type processor. This type processor allows users to have custom behavior modify the string in a way that displays the content. See type processor.
-3. The third optional parameter is a argument that can be provided to the type processor, this depends on the type processor.
+1. The first parameter for every variable is always a number. This signifies the argument\'s position being retrieved. If this is an array, the next parameter must be another number, unless it\'s inside a double `{{}}` operator, in which case the iterator automatically sets it.
+2. The second parameter, following the potential array indexer, is an optional type processor. This enables users to modify the string display content with custom behavior. See type processor.
+3. The third optional parameter is an argument provided to the type processor, which depends on the type processor.
 
-**Short story long, there can be many different ways to declare variables in the format string, so here are a few examples:**
+Here are a few examples of how to declare variables in the format string:
 
-- `{0}` - The value at offset 0
-- `{1:decimal}` - The value at offset 1, displayed as a decimal
-- `{1:time:day}` - The value at offset 1, displayed as a time, with the processor parameter: "day"
-- `{0:1}` - The value in the array at offset 0 at index 1
-- `{{0:time}}` - For every value in the array at offset 0 display the as time
+- `{0}` - Value at offset 0
+- `{1:decimal}` - Value at offset 1, displayed as a decimal
+- `{1:date:day}` - Value at offset 1, displayed as time, with the processor parameter: "day"
+- `{0:1}` - Value in the array at offset 0 at index 1
+- `{{0:date}}` - Display each value in the array at offset 0 as time
 
-**attempting to get an array without an index will cause an error*
+Attempting to retrieve an array without an index will cause an error.
 
-## The Value String
+## Value String
 
-The value string is pretty simple, it is an array of either strings or array of strings.
+The value string is quite simple - it is an array of strings or array of strings.
 ```ts
 type Input = (string | string[])[]
 
@@ -75,37 +81,57 @@ var example: Input = ["foo",["bar"]]
 ```
 
 # Type Processors
+Type processors give you the ability to manipulate the string representation of the inserted data according to specific rules. Here's a detailed look at the existing type processors.
+
+## GLOBAL TYPE FLAGS
+Some typeprocessors share arguments, in which case they have a `global type flag` meaning that you can append them to any function that is a member of one, is you include the type flag in the parameter (usually at the end) it will also be executed.
+
+1. **Seperator Flag** `,` - Append this to any type processor argument, or by itself and it group numbers by comma seperators. Example:
+    - `{0:decimal:,}` - Can use it with no additional type parameter, example returns "1,000.00"
+    - `{0:currency:$,}` - Or use it with a type argument, example returns "$1,000.00"
+2. 
+**Make sure you only use it with one that subscribes to the global type flag*
+
+
+---
 
 ## String - `:string`
-Main default for all, just returns the existing value. Following additional type parameters:
-### `:lower`
-Converts the string lowercase
-### `:upper`
-Converts the string to uppercase
+Returns the existing value. Additional type parameters are:
+- `:lower`: Converts the string to lowercase
+- `:upper`: Converts the string to uppercase
+- `:capitalize`: Transforms the first character of the string to uppercase
+- `:trim`: Trims leading and trailing whitespaces from the string.
+- `:reverse`: Reverses the string characters. For example, {0:string:reverse} for "Hello" outputs "olleH".
+
 ## Date - `:date`
-Converts the string to a date, uses the javascript `Date()` function to parse the string, following additional type parameters:
-
-### `:{yyyy}{MM}{dd}`
-Converts the date to readable time, provide a string after the `:` of the prefered format, include the `{yyyy}` or `{MM}` or `{dd}` if you want to show the respective part of the date. For example:
-```
-{0:date:Year- yyyy}  -> "Year- 2023"
-```
-
-## Time `:time`
-TODO
+Converts the string to a date, using the JavaScript `Date()` function to parse the string. Additional type parameters:
+- `:{yyyy}{MM}{dd}`: Converts the date to a readable format. Use `{yyyy}`, `{MM}`, or `{dd}` to display the respective part of the date. For example: `{0:date:Year- yyyy}` -> "Year- 2023"
+- `:day` Outputs the day of the week. For example, `{0:date:day}` -> "Monday".
+- `:month`: Outputs the full month name. For example, `{0:date:month}` for "2023-06-09" outputs "June".
+- `:shortYear`: Outputs the last two digits of the year. For example, `{0:date:shortYear}` for "2023-06-09" outputs "23".
+- `:iso`: Outputs the date in ISO 8601 format.
 
 ## Excel Date `:exceldate`
-TODO
+*No additional processors for excel date*
 
 ## Decimal - `:decimal`
-TODO
+*supports [`Seperator`] flag
+- `:rounded`: Rounds off the decimal number to the nearest integer. For example, {1:decimal:rounded} outputs 24 for an input of 23.6.
+
+## Number - `:number`
+*supports [`Seperator`] flag
+- `:oddEven`: Outputs "odd" for odd numbers and "even" for even numbers.
+- `:positiveNegative`: Outputs "positive" for positive numbers, "negative" for negative numbers and "zero" for zero.
+- `:ordinal`: Outputs the ordinal form of the number. For example, `{1:number:ordinal}` for "23" outputs "23rd".
 
 ## Percent - `:percent`
-TODO
+- `:inverse`: Gives the complement of the percentage. For example, {2:percent:inverse} outputs 77% for an input of 23%. 
 
 ## Currency - `:currency`
-TODO
+*supports [`Seperator`] flag
+- `:format`: Allows the currency format to be specified. For example, {1:currency:format:£} outputs £100 for an input of 100.
 
 ## Boolean - `:bool`
-TODO
-
+- `:yesno`: Outputs "yes" for true and "no" for false. For example, {0:bool:yesno} outputs "yes" for true.
+- `:onoff`: Outputs "on" for true and "off" for false.
+- `:empty`: Outputs "yes" for empty and "no" for not empty.

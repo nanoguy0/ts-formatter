@@ -1,9 +1,12 @@
 import { Formatter } from '../src/formatter';
+import { tests } from './tests.json'
+
+type input = typeof tests[0]
 
 describe('Formatter', () => {
-    test('should format a string', () => {
-        var format = new Formatter();
-        var result = format.format('Hello {0}', ['World']);
-        expect(result).toBe('Hello World');
+    // const formatter = new Formatter(); // We dont use any instance v
+    // Simple formatter tests
+    test.each(tests)("$test", function({ format, input, expect: expected }: input) {
+        expect((new Formatter()).format(format, input)).toBe(expected);
     });
 });

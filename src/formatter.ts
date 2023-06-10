@@ -259,10 +259,15 @@ export class Formatter {
    * @options
    *  - 2023-01-01
    */
-  tryParseDate(context: string, format?: string): string {
+  tryParseDate(context: string | Date, format?: string): string {
     // regex to remove anything that is not a number, dash, colon, T, Z, or period
-    const sanitized = context.replace(/[^0-9-:TZ.]/g, '');
-    const date = new Date(sanitized);
+    let date: Date;
+    if (context instanceof Date) date = context;
+    else {
+      const sanitized = context.replace(/[^0-9-:TZ.]/g, '');
+      date = new Date(sanitized);
+    }
+
     if (isNaN(date.getTime())) return '';
     if (format) {
       return format
