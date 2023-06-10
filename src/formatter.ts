@@ -1,17 +1,18 @@
 enum NumberType {
   Decimal,
-  Percent,
-  Currency,
-  Scientific,
-  Fixed,
-  Compact,
-  Short,
-  Long,
   Number,
-  Float,
+  Percent,
+  Currency
 }
 
 export class Formatter {
+  
+  static DOUBLE_OPERATOR_DELIMETER = ' ';
+  static DEFAULT_DATE_FORMAT: Intl.DateTimeFormatOptions ={ month: 'numeric', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+  static DEFAULT_NUMBER_FORMAT: Intl.NumberFormatOptions = { useGrouping: false };
+
+
+
   format(format: string, labels: (string | string[])[], index?: number): string {
     // This is the return string
     let result = '';
@@ -30,8 +31,15 @@ export class Formatter {
         // We are in an array matcher
         const brace_stream = this.braceMatcher(content);
         const arrayLength = this.searchForArrayArgumentAndValidate(brace_stream, labels);
-        for (let i = 0; i < arrayLength; i++) result += this.format(content, labels, i) + ', ';
-
+        for (let i = 0; i < arrayLength; i++) {
+          let resultContent = this.format(content, labels, i);
+          // Skip if no content
+          if (resultContent === '') continue;
+          // If we are the last element, we dont need a delimter
+          if (i != arrayLength - 1) resultContent += Formatter.DOUBLE_OPERATOR_DELIMETER;
+          result += resultContent;
+        }
+        
         continue;
       }
 
@@ -114,8 +122,9 @@ export class Formatter {
         const foundResult = this.tryParsePosition(content.split(':').map(d => d.trim())[0], labels);
         if (!Array.isArray(foundResult)) continue; // We aren't an array skip this
         if (knownArrayCount === undefined) knownArrayCount = foundResult.length;
+        // We will have non strict mode for now
         // else if (knownArrayCount !== foundResult.length)
-          throw new Error('Arrays must have same length!');
+        // throw new Error('Arrays must have same length!');
       }
     } while (!currentElement.done);
     if (knownArrayCount === undefined) throw new Error('No array found in array matcher');
@@ -136,7 +145,9 @@ export class Formatter {
 
     const positionNumber = parseInt(position);
     if (isNaN(positionNumber)) throw new Error('Prameter position is not a number');
-    if (positionNumber > content.length) throw new Error('Can not find parameter position');
+    if (positionNumber > content.length) 
+      return ""; // for now we will have non stirct mode
+    // throw new Error('Can not find parameter position');
 
     return content[positionNumber];
   }
@@ -198,22 +209,20 @@ export class Formatter {
       case 'enum':
       case 'string':
         return this.tryParseString(context, variableOption);
-      case 'currency':
-        return this.tryParseCurrency(context, variableOption);
       case 'date':
         return this.tryParseDate(context, variableOption);
       case 'exceldate':
         return this.tryParseExcelDate(context, variableOption);
-      case 'boolean':
-        return context.trim() ? 'Yes' : 'No';
-      case 'float':
-        return this.tryParseNumber(context, NumberType.Float, variableOption);
       case 'decimal':
         return this.tryParseNumber(context, NumberType.Decimal, variableOption);
-      case 'percent':
-        return this.tryParseNumber(context, NumberType.Percent, variableOption);
       case 'number':
         return this.tryParseNumber(context, NumberType.Number, variableOption);
+      case 'percent':
+        return this.tryParseNumber(context, NumberType.Percent, variableOption);
+      case 'currency':
+        return this.tryParseNumber(context, NumberType.Currency, variableOption);
+      case 'bool':
+        return this.tryParseBool(context, variableOption);
       default:
         throw new Error('Invalid format type');
     }
@@ -229,27 +238,23 @@ export class Formatter {
    *
    * @returns
    */
-  tryParseString(context: string, variableOption: string | undefined): string {
+  tryParseString(context: string, variableOption?: string): string {
     if (variableOption === undefined) return context;
-    else if (variableOption.trim() === 'lower') return context.toLowerCase();
-    else if (variableOption.trim() === 'upper') return context.toUpperCase();
-    else throw new Error('Invalid variable option');
-  }
 
-  /**
-   * Trys to convert it to a currency
-   * @param context
-   * @param variableOption
-   * @options
-   *  - USD
-   */
-  tryParseCurrency(context: string, variableOption: string | undefined): string {
-    const currency = parseFloat(context);
-    if (isNaN(currency)) return '';
-    return currency.toLocaleString('en-US', {
-      style: 'currency',
-      currency: variableOption ?? 'USD',
-    });
+    switch (variableOption.trim()) {
+      case 'lower':
+        return context.toLowerCase();
+      case 'upper':
+        return context.toUpperCase();
+      case 'capitalize':
+        return context.charAt(0).toUpperCase() + context.slice(1);
+      case 'trim':
+        return context.trim();
+      case 'reverse':
+        return context.split('').reverse().join('');
+      default:
+        throw new Error('Invalid variable option');
+    }
   }
 
   /**
@@ -259,23 +264,41 @@ export class Formatter {
    * @options
    *  - 2023-01-01
    */
-  tryParseDate(context: string | Date, format?: string): string {
-    // regex to remove anything that is not a number, dash, colon, T, Z, or period
+  tryParseDate(context: string | Date, variableOption?: string): string {
+
+    // Check if we are from the excel date function
     let date: Date;
     if (context instanceof Date) date = context;
     else {
+      // regex to remove anything that is not a number, dash, colon, T, Z, or period
       const sanitized = context.replace(/[^0-9-:TZ.]/g, '');
       date = new Date(sanitized);
     }
 
+
     if (isNaN(date.getTime())) return '';
-    if (format) {
-      return format
-        .replace(/yyyy/g, date.getFullYear().toString())
-        .replace(/MM/g, (date.getMonth() + 1).toString().padStart(2, '0'))
-        .replace(/dd/g, date.getDate().toString().padStart(2, '0'));
-    } else {
-      return date.toLocaleDateString();
+
+    const options: Intl.DateTimeFormatOptions = {...Formatter.DEFAULT_DATE_FORMAT};
+    // Do we have a variable option
+    if (variableOption === undefined) return date.toLocaleDateString(undefined,options);
+
+    // Parse options
+    switch (variableOption.trim()) {
+      case 'day':
+        // Get the day of the week
+        return date.toLocaleDateString(undefined, { weekday: 'long' });
+      case 'month':
+        return date.toLocaleDateString(undefined, { month: 'long' });
+      case 'shortYear':
+        return date.toLocaleDateString(undefined, { year: '2-digit' });
+      case 'iso':
+        return date.toISOString();
+      default:
+        // This is a format string
+        return variableOption
+          .replace(/yyyy/g, date.getFullYear().toString())
+          .replace(/MM/g, (date.getMonth() + 1).toString().padStart(2, '0'))
+          .replace(/dd/g, date.getDate().toString().padStart(2, '0'));
     }
   }
 
@@ -287,20 +310,49 @@ export class Formatter {
    *  - 123456
    */
   tryParseExcelDate(context: string, format?: string): string {
+    const isMacDateSystem = false/* check workbook's 1904 date system flag */;
+    const epochDate = isMacDateSystem ? new Date(Date.UTC(1904, 0, 1)) : new Date(Date.UTC(1900, 0, 1));
     const serialNumber = parseFloat(context);
+
     if (isNaN(serialNumber)) return '';
     const serial = Math.floor(serialNumber);
-    if (serial <= 60) {
-      return this.tryParseDate(
-        new Date(Date.UTC(1900, 0, 1) + (serial - 1) * 24 * 60 * 60 * 1000),
-        format
-      );
-    } else {
-      return this.tryParseDate(
-        new Date(Date.UTC(1900, 0, 1) + (serial - 2) * 24 * 60 * 60 * 1000),
-        format
-      );
-    }
+
+    // Calculate the fraction of the day elapsed
+    const fraction = serialNumber - serial;
+    const timeInMs = Math.round(fraction * 24 * 60 * 60 * 1000);
+
+    const date = new Date(epochDate.getTime() + (serial - 1) * 24 * 60 * 60 * 1000 + timeInMs);
+    
+    return this.tryParseDate(date, format);
+  }
+
+  private getOrdinal(n: number): string {
+    const suffixes = ['th', 'st', 'nd', 'rd'];
+    const lastDigit = n % 10;
+    const suffix = suffixes[lastDigit] || suffixes[0];
+    return n + suffix;
+  }
+
+  private getCurrencyCode(option: string): string {
+    let cleanedOption = option.trim();
+    if (cleanedOption.length === 3) return cleanedOption.toUpperCase();
+    else if (cleanedOption.length === 5) return cleanedOption.substring(3).toUpperCase();
+
+    const currencyMap = new Map<string, string>([
+      ['$', 'USD'],
+      ['€', 'EUR'],
+      ['£', 'GBP'],
+      ['¥', 'JPY'],
+      ['₩', 'KRW'],
+      ['₹', 'INR'],
+      ['₽', 'RUB'],
+    ]);
+
+    // Try parse the symbol
+    const symbol = cleanedOption[0]
+    if (!currencyMap.has(symbol))
+      throw new Error('Invalid currency symbol');
+    return currencyMap.get(symbol) as string;
   }
   /**
    * Trys to convert it from a string to a number with options
@@ -310,44 +362,129 @@ export class Formatter {
    *  - 123456
    */
   tryParseNumber(context: string, numberType: NumberType, formatOption?: string): string {
-    const sanitized = context.replace(/[^0-9.]/g, '');
-    const number = Number.parseFloat(sanitized);
+    const sanitized = context.replace(/[^0-9.-]/g, '');
+    let number = Number.parseFloat(sanitized);
     if (isNaN(number)) return '';
-    if (formatOption) {
-      return number.toLocaleString(
-        undefined,
-        this.parseNumberFormatOptions(numberType, formatOption)
-      );
-    } else {
-      return String(number);
+
+    // This is a helper function to check if the format is set
+    let checkIfFormatIsSet;
+    if (formatOption === undefined) checkIfFormatIsSet = (tester?: string) => false;
+    // The user can check to see if format is set to a specific value or if it is set at all
+    else checkIfFormatIsSet = (tester?: string) => tester === undefined ? true : tester === formatOption;
+
+    // Used by locale specific options
+    let localeOptions: Intl.NumberFormatOptions = { ...Formatter.DEFAULT_NUMBER_FORMAT };
+
+    // Used for format options that are not locale specific
+    switch (numberType) {
+      case NumberType.Decimal:
+        localeOptions.style = 'decimal';
+        localeOptions.maximumFractionDigits = 2;
+        localeOptions.minimumFractionDigits = 2;
+        localeOptions.useGrouping = true;
+
+        if (checkIfFormatIsSet('rounded')) {
+          number = Math.round(number);
+          localeOptions.maximumFractionDigits = 0;
+          localeOptions.minimumFractionDigits = 0;
+        } 
+        else if (checkIfFormatIsSet()) {
+          // We know for sure formatOption is set tell typescript that
+          formatOption = formatOption as string;
+
+          // Try to get the number of decimal places
+          localeOptions.maximumFractionDigits = parseInt(formatOption);
+          if (isNaN(localeOptions.maximumFractionDigits))
+            throw new Error('Invalid decimal format');
+          localeOptions.minimumFractionDigits = localeOptions.maximumFractionDigits;          
+        }
+        break;
+      case NumberType.Number:
+        localeOptions.style = 'decimal';
+        if (checkIfFormatIsSet('oddEven')) return number % 2 === 0 ? 'even' : 'odd';
+        else if (checkIfFormatIsSet('positiveNegative')) {
+          if (number === 0) return 'zero';
+          return number >= 0 ? 'positive' : 'negative';
+        }
+        else if (checkIfFormatIsSet('ordinal')) return this.getOrdinal(number);
+        else if (checkIfFormatIsSet('comma')) localeOptions.useGrouping = true;
+        break;
+      case NumberType.Percent:
+        localeOptions.style = 'percent';
+        localeOptions.maximumFractionDigits = 2;
+        // Try normalize the number if it is not a percent
+        if (number > 1) number /= 100;
+
+        if (checkIfFormatIsSet('inverse')) number = 1 - number;
+        break;
+      case NumberType.Currency:
+        localeOptions.style = 'currency';
+        localeOptions.useGrouping = true;
+        localeOptions.currency = 'USD';
+
+        if (checkIfFormatIsSet()) {
+          // We know for sure formatOption is set tell typescript that
+          formatOption = formatOption as string;
+
+          // Try to get the currency, it can be any currency symbol convert it to the code
+          localeOptions.currency = this.getCurrencyCode(formatOption);
+        }
+        break;
     }
+
+    // Used for format options that are locale specific
+    return number.toLocaleString(
+      undefined,
+      localeOptions
+    );
   }
 
-  parseNumberFormatOptions(
-    numberType: NumberType,
-    formatOptions: string | undefined
-  ): Intl.NumberFormatOptions {
-    const options: Intl.NumberFormatOptions = {};
+  /**
+  * Trys to convert it to a currency
+  * @param context
+  * @param variableOption
+  * @options
+  *  - USD
+  */
+  tryParseCurrency(context: string, variableOption?: string): string {
+    const currency = parseFloat(context);
+    if (isNaN(currency)) return '';
 
-    let formatOption = formatOptions;
-    if (formatOption?.includes(',')) {
-      options.useGrouping = true;
-      formatOption = formatOptions?.replace(',', '');
-    }
 
-    switch (numberType) {
-      case NumberType.Percent:
-        options.style = 'percent';
-        break;
-      case NumberType.Decimal:
-        options.style = 'decimal';
-        options.minimumFractionDigits = parseInt(formatOption || '0');
-        options.maximumFractionDigits = options.minimumFractionDigits;
-        break;
-      default:
-        options.style = 'decimal';
-        break;
+    return currency.toLocaleString('en-US', {
+      style: 'currency',
+      currency: variableOption ?? 'USD',
+    });
+  }
+
+  /**
+   * Trys to convert it to a boolean
+   * @param context 
+   * @param variableOption 
+   */
+  tryParseBool(context: string, variableOption?: string): string {
+    if (variableOption === undefined) {
+      if (context.toLowerCase().trim() === 'true') return 'true';
+      else if (context.toLowerCase().trim() === 'false') return 'false';
+      else return '';
+    } else {
+      if (variableOption === 'empty') {
+        if (context.trim() === '') return 'yes';
+        else return 'no';
+      }
+
+      switch (variableOption.trim()) {
+        case 'yesno':
+          if (context.toLowerCase().trim() === 'true') return 'yes';
+          else if (context.toLowerCase().trim() === 'false') return 'no';
+          else return '';
+        case 'onoff':
+          if (context.toLowerCase().trim() === 'true') return 'on';
+          else if (context.toLowerCase().trim() === 'false') return 'off';
+          else return '';
+        default:
+          return '';
+      }
     }
-    return options;
   }
 }

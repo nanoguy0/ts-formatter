@@ -109,12 +109,13 @@ Converts the string to a date, using the JavaScript `Date()` function to parse t
 - `:oddEven`: Outputs "odd" for odd numbers and "even" for even numbers.
 - `:positiveNegative`: Outputs "positive" for positive numbers, "negative" for negative numbers and "zero" for zero.
 - `:ordinal`: Outputs the ordinal form of the number. For example, `{1:number:ordinal}` for "23" outputs "23rd".
+- `:comma`: Adds a comma grouping to the outputed number For example `{1:number:comma}` for "2300" outputs "2,300".
 
 ## Percent - `:percent`
 - `:inverse`: Gives the complement of the percentage. For example, {2:percent:inverse} outputs 77% for an input of 23%. 
 
 ## Currency - `:currency`
-- `:format`: Allows the currency format to be specified. For example, {1:currency:format:£} outputs £100 for an input of 100.
+- `:{format}`: Allows the currency format to be specified. For example, {1:currency:£} outputs £100 for an input of 100.
 
 ## Boolean - `:bool`
 - `:yesno`: Outputs "yes" for true and "no" for false. For example, {0:bool:yesno} outputs "yes" for true.

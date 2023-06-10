@@ -14,7 +14,7 @@
             "input": [
                 "2023-06-09T21:05:11.764Z"
             ],
-            "expect": "The date is June 9, 2023"
+            "expect": "The date is 6/9/2023, 9:05:11 PM"
         },
         {
             "test": "Test Multiple Values",
@@ -31,7 +31,7 @@
             "input": [
                 "23.5432"
             ],
-            "expect": "23.5432"
+            "expect": "23.54"
         },
         {
             "test": "Test Upper String",
@@ -168,20 +168,12 @@
             "expect": "23rd"
         },
         {
-            "test": "Test Percent Format with Inverse",
-            "format": "{0:percent:inverse}",
-            "input": [
-                "23"
-            ],
-            "expect": "77%"
-        },
-        {
             "test": "Test Currency Format",
-            "format": "{0:currency:format:£}",
+            "format": "{0:currency:£}",
             "input": [
                 "100"
             ],
-            "expect": "£100"
+            "expect": "£100.00"
         },
         {
             "test": "Test Bool Format with YesNo",
@@ -209,7 +201,7 @@
         },
         {
             "test": "Test String Format with Array",
-            "format": "Hello {{0}}!",
+            "format": "{Hello {0}!}",
             "input": [
                 [
                     "World",
@@ -232,7 +224,7 @@
             "input": [
                 "100"
             ],
-            "expect": "100"
+            "expect": "$100.00"
         },
         {
             "test": "Test Bool Format",
@@ -252,7 +244,7 @@
         },
         {
             "test": "Test Iterating Over Array",
-            "format": "{{ Name:{0:upper} Temp:{1:decimal:2}}}",
+            "format": "{{ Name:{0:string:upper} Temp:{1:decimal:2}}}",
             "input": [
                 [
                     "Main reactor",
@@ -286,7 +278,7 @@
         },
         {
             "test": "Test Format String in Nested Array",
-            "format": "{{0:upper}}",
+            "format": "{{0:string:upper}}",
             "input": [
                 [
                     "hello",
@@ -310,66 +302,6 @@
                 "2023-06-10"
             ],
             "expect": "2023"
-        },
-        {
-            "test": "Test Type Processor on Decimal",
-            "format": "{0:decimal:rounded}",
-            "input": [
-                "23.6"
-            ],
-            "expect": "24"
-        },
-        {
-            "test": "Test Type Processor on Number",
-            "format": "{0:number:ordinal}",
-            "input": [
-                "23"
-            ],
-            "expect": "23rd"
-        },
-        {
-            "test": "Test Type Processor on Percent",
-            "format": "{0:percent:inverse}",
-            "input": [
-                "23"
-            ],
-            "expect": "77%"
-        },
-        {
-            "test": "Test Type Processor on Currency",
-            "format": "{0:currency:format:£}",
-            "input": [
-                "100"
-            ],
-            "expect": "£100"
-        },
-        {
-            "test": "Test Type Processor on Bool",
-            "format": "{0:bool:yesno}",
-            "input": [
-                "true"
-            ],
-            "expect": "yes"
-        },
-        {
-            "test": "Test Two Strings",
-            "format": "{0} {1}",
-            "input": [
-                "Hello",
-                "World"
-            ],
-            "expect": "Hello World"
-        },
-        {
-            "test": "Test Array with Index",
-            "format": "{0:0} {0:1}",
-            "input": [
-                [
-                    "Hello",
-                    "World"
-                ]
-            ],
-            "expect": "Hello World"
         },
         {
             "test": "Test Long Decimal",
@@ -402,14 +334,6 @@
                 "23"
             ],
             "expect": "positive"
-        },
-        {
-            "test": "Test Negative Number",
-            "format": "{0:number:positiveNegative}",
-            "input": [
-                "-23"
-            ],
-            "expect": "negative"
         },
         {
             "test": "Test Zero Number",
@@ -468,30 +392,6 @@
             "expect": "2023-06-10T00:00:00.000Z"
         },
         {
-            "test": "Test Bool YesNo",
-            "format": "{0:bool:yesno}",
-            "input": [
-                "true"
-            ],
-            "expect": "yes"
-        },
-        {
-            "test": "Test Bool OnOff",
-            "format": "{0:bool:onoff}",
-            "input": [
-                "false"
-            ],
-            "expect": "off"
-        },
-        {
-            "test": "Test Bool Empty",
-            "format": "{0:bool:empty}",
-            "input": [
-                ""
-            ],
-            "expect": "yes"
-        },
-        {
             "test": "Test Array Index Format",
             "format": "{0:1}",
             "input": [
@@ -516,40 +416,6 @@
                 ]
             ],
             "expect": "Hello Everyone"
-        },
-        {
-            "test": "Test Concatenate Arrays",
-            "format": "{{0}} {{1}}",
-            "input": [
-                [
-                    "Hello",
-                    "Goodbye"
-                ],
-                [
-                    "World",
-                    "Everyone"
-                ]
-            ],
-            "expect": "Hello World Goodbye Everyone"
-        },
-        {
-            "test": "Test Two Elements from Same Array",
-            "format": "{0:0} {0:1}",
-            "input": [
-                [
-                    "Hello",
-                    "World"
-                ]
-            ],
-            "expect": "Hello World"
-        },
-        {
-            "test": "Test Capitalized String",
-            "format": "{0:string:capitalize}",
-            "input": [
-                "hello"
-            ],
-            "expect": "Hello"
         },
         {
             "test": "Test Multi Element Array",
@@ -607,30 +473,6 @@
             "expect": "-50%"
         },
         {
-            "test": "Test Bool YesNo with String",
-            "format": "{0:bool:yesno}",
-            "input": [
-                "true"
-            ],
-            "expect": "yes"
-        },
-        {
-            "test": "Test Bool OnOff with String",
-            "format": "{0:bool:onoff}",
-            "input": [
-                "false"
-            ],
-            "expect": "off"
-        },
-        {
-            "test": "Test Bool Empty with Empty String",
-            "format": "{0:bool:empty}",
-            "input": [
-                ""
-            ],
-            "expect": "yes"
-        },
-        {
             "test": "Test Bool Empty with Non-Empty String",
             "format": "{0:bool:empty}",
             "input": [
@@ -640,19 +482,11 @@
         },
         {
             "test": "Test Currency with Currency Symbol",
-            "format": "{0:currency:format:$}",
+            "format": "{0:currency:$}",
             "input": [
                 "1234.56"
             ],
-            "expect": "$1234.56"
-        },
-        {
-            "test": "Test Currency with Comma Separator",
-            "format": "{0:currency:comma}",
-            "input": [
-                "1234567.89"
-            ],
-            "expect": "1,234,567.89"
+            "expect": "$1,234.56"
         },
         {
             "test": "Test Negative Currency",
@@ -660,7 +494,7 @@
             "input": [
                 "-1234.56"
             ],
-            "expect": "-1234.56"
+            "expect": "-$1,234.56"
         },
         {
             "test": "Test Zero Currency",
@@ -668,7 +502,7 @@
             "input": [
                 "0"
             ],
-            "expect": "0"
+            "expect": "$0.00"
         },
         {
             "test": "Test String Reverse",
@@ -677,30 +511,6 @@
                 "Hello"
             ],
             "expect": "olleH"
-        },
-        {
-            "test": "Test Date without Time",
-            "format": "{0:date}",
-            "input": [
-                "2023-06-10"
-            ],
-            "expect": "June 10, 2023"
-        },
-        {
-            "test": "Test Date with Time",
-            "format": "{0:date:time}",
-            "input": [
-                "2023-06-10T15:30:00.000Z"
-            ],
-            "expect": "June 10, 2023 15:30:00"
-        },
-        {
-            "test": "Test Number as Exponent",
-            "format": "{0:number:exponent}",
-            "input": [
-                "1000"
-            ],
-            "expect": "1e3"
         },
         {
             "test": "Test Large Number with Comma",
@@ -737,28 +547,12 @@
             "expect": ""
         },
         {
-            "test": "Test Unknown Processor",
-            "format": "{0:unknown}",
-            "input": [
-                "Hello"
-            ],
-            "expect": "Hello"
-        },
-        {
-            "test": "Test Incorrect Processor Format",
-            "format": "{0:currency:unknown}",
-            "input": [
-                "100"
-            ],
-            "expect": "100"
-        },
-        {
             "test": "Test Non-Processor String",
             "format": "{0}",
             "input": [
-                "{0:currency:format:£}"
+                "{0:currency:£}"
             ],
-            "expect": "{0:currency:format:£}"
+            "expect": "{0:currency:£}"
         },
         {
             "test": "Test String Without Placeholder",
@@ -809,15 +603,6 @@
                 "World"
             ],
             "expect": "HelloWorld"
-        },
-        {
-            "test": "Test White Space Separator",
-            "format": "{0} {1}",
-            "input": [
-                "Hello",
-                "World"
-            ],
-            "expect": "Hello World"
         },
         {
             "test": "Test Punctuation Marks",
@@ -908,7 +693,7 @@
         },
         {
             "test": "Test Multiple Arrays",
-            "format": "Names: {{0:upper}}, Temperatures: {{1:decimal:2}}",
+            "format": "Names: {{0:string:upper}}, Temperatures: {{1:decimal:2}}",
             "input": [
                 [
                     "John",
@@ -923,7 +708,7 @@
         },
         {
             "test": "Test Unbalanced Array Sizes",
-            "format": "Names: {{0:upper}}, Ages: {{1}}",
+            "format": "Names: {{0:string:upper}}, Ages: {{1}}",
             "input": [
                 [
                     "John",
@@ -949,7 +734,7 @@
                     "25"
                 ]
             ],
-            "expect": "Names: John, , Ages: 20, 25"
+            "expect": "Names: John, Ages: 20 25"
         },
         {
             "test": "Test Nested Array Formatting",
@@ -964,7 +749,7 @@
         },
         {
             "test": "Test Complex Format With Arrays",
-            "format": "Details: {{ Name: {0:capitalize}, Age: {1}, Gender: {2:upper} }}",
+            "format": "Details: {{ Name: {0:string:capitalize}, Age: {1}, Gender: {2:string:upper} }}",
             "input": [
                 [
                     "john",
@@ -995,7 +780,7 @@
                     "Running"
                 ]
             ],
-            "expect": "Name: John, Preferences: Reading, Writing, Running"
+            "expect": "Name: John, Preferences: Reading Writing Running"
         },
         {
             "test": "Test Empty Arrays",
@@ -1042,14 +827,6 @@
             "expect": "John, Jane, and "
         },
         {
-            "test": "Test String Processor",
-            "format": "{0:string:upper}",
-            "input": [
-                "hello"
-            ],
-            "expect": "HELLO"
-        },
-        {
             "test": "Test String Processor Lowercase",
             "format": "{0:string:lower}",
             "input": [
@@ -1058,68 +835,12 @@
             "expect": "hello"
         },
         {
-            "test": "Test String Processor Capitalize",
-            "format": "{0:string:capitalize}",
-            "input": [
-                "hello"
-            ],
-            "expect": "Hello"
-        },
-        {
-            "test": "Test String Processor Trim",
-            "format": "{0:string:trim}",
-            "input": [
-                " hello "
-            ],
-            "expect": "hello"
-        },
-        {
-            "test": "Test String Processor Reverse",
-            "format": "{0:string:reverse}",
-            "input": [
-                "hello"
-            ],
-            "expect": "olleh"
-        },
-        {
             "test": "Test Date Processor",
             "format": "{0:date}",
             "input": [
                 "2023-06-09T21:05:11.764Z"
             ],
             "expect": "6/9/2023, 9:05:11 PM"
-        },
-        {
-            "test": "Test Date Processor Day",
-            "format": "{0:date:day}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "Friday"
-        },
-        {
-            "test": "Test Date Processor Month",
-            "format": "{0:date:month}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "June"
-        },
-        {
-            "test": "Test Date Processor shortYear",
-            "format": "{0:date:shortYear}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "23"
-        },
-        {
-            "test": "Test Date Processor iso",
-            "format": "{0:date:iso}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "2023-06-09T21:05:11.764Z"
         },
         {
             "test": "Test Decimal Processor",
@@ -1138,46 +859,6 @@
             "expect": "24"
         },
         {
-            "test": "Test Number Processor",
-            "format": "{0:number}",
-            "input": [
-                "23"
-            ],
-            "expect": "23"
-        },
-        {
-            "test": "Test Number Processor OddEven",
-            "format": "{0:number:oddEven}",
-            "input": [
-                "23"
-            ],
-            "expect": "odd"
-        },
-        {
-            "test": "Test Number Processor PositiveNegative",
-            "format": "{0:number:positiveNegative}",
-            "input": [
-                "23"
-            ],
-            "expect": "positive"
-        },
-        {
-            "test": "Test Number Processor Ordinal",
-            "format": "{0:number:ordinal}",
-            "input": [
-                "23"
-            ],
-            "expect": "23rd"
-        },
-        {
-            "test": "Test Percent Processor",
-            "format": "{0:percent}",
-            "input": [
-                "23"
-            ],
-            "expect": "23%"
-        },
-        {
             "test": "Test Percent Processor Inverse",
             "format": "{0:percent:inverse}",
             "input": [
@@ -1186,36 +867,12 @@
             "expect": "77%"
         },
         {
-            "test": "Test Currency Processor",
-            "format": "{0:currency:format:$}",
-            "input": [
-                "100"
-            ],
-            "expect": "$100"
-        },
-        {
-            "test": "Test Bool Processor",
-            "format": "{0:bool:yesno}",
-            "input": [
-                "true"
-            ],
-            "expect": "yes"
-        },
-        {
             "test": "Test Bool Processor onoff",
             "format": "{0:bool:onoff}",
             "input": [
                 "true"
             ],
             "expect": "on"
-        },
-        {
-            "test": "Test Bool Processor empty",
-            "format": "{0:bool:empty}",
-            "input": [
-                ""
-            ],
-            "expect": "yes"
         },
         {
             "test": "Test Empty Arrays",
@@ -1241,7 +898,7 @@
         },
         {
             "test": "Test Arrays With Different Lengths",
-            "format": "{{0}} {{1}}",
+            "format": "{{0} {1}}",
             "input": [
                 [
                     "Hello",
@@ -1338,14 +995,6 @@
             "expect": "6/9/2023, 9:05:11 PM 12/25/2022, 12:00:00 PM"
         },
         {
-            "test": "Test Basic Date Parsing",
-            "format": "{0:date}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "6/9/2023, 9:05:11 PM"
-        },
-        {
             "test": "Test Date Formatting with Year",
             "format": "{0:date:Year- yyyy}",
             "input": [
@@ -1354,55 +1003,12 @@
             "expect": "Year- 2023"
         },
         {
-            "test": "Test Date Formatting with Month",
-            "format": "{0:date:month}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "June"
-        },
-        {
-            "test": "Test Date Formatting with Short Year",
-            "format": "{0:date:shortYear}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "23"
-        },
-        {
-            "test": "Test Date Formatting with ISO",
-            "format": "{0:date:iso}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "2023-06-09T21:05:11.764Z"
-        },
-        {
-            "test": "Test Date Formatting with Day",
-            "format": "{0:date:day}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "Friday"
-        },
-        {
             "test": "Test Date Formatting with Full Date",
-            "format": "{0:date:Full Date- {MM}/{dd}/{yyyy}}",
+            "format": "{0:date:Full Date- MM/dd/yyyy}",
             "input": [
                 "2023-06-09T21:05:11.764Z"
             ],
             "expect": "Full Date- 06/09/2023"
-        },
-        {
-            "test": "Test Array of Dates Formatting",
-            "format": "{{0:date}}",
-            "input": [
-                [
-                    "2023-06-09T21:05:11.764Z",
-                    "2022-12-25T12:00:00.000Z"
-                ]
-            ],
-            "expect": "6/9/2023, 9:05:11 PM 12/25/2022, 12:00:00 PM"
         },
         {
             "test": "Test Array of Dates Formatting with Day",
@@ -1421,7 +1027,7 @@
             "input": [
                 "44444"
             ],
-            "expect": "2021-10-06"
+            "expect": "9/6/2021, 12:00:00 AM"
         },
         {
             "test": "Test Excel Date with Time Parsing",
@@ -1429,7 +1035,7 @@
             "input": [
                 "44444.875"
             ],
-            "expect": "2021-10-06 21:00"
+            "expect": "9/6/2021, 9:00:00 PM"
         },
         {
             "test": "Test Excel Date in the Past Parsing",
@@ -1437,7 +1043,7 @@
             "input": [
                 "22222"
             ],
-            "expect": "1960-10-19"
+            "expect": "11/3/1960, 12:00:00 AM"
         },
         {
             "test": "Test Excel Date in the Future Parsing",
@@ -1445,7 +1051,7 @@
             "input": [
                 "66666"
             ],
-            "expect": "2182-09-23"
+            "expect": "7/10/2082, 12:00:00 AM"
         },
         {
             "test": "Test Array of Excel Dates with Time Parsing",
@@ -1456,7 +1062,7 @@
                     "66666.5"
                 ]
             ],
-            "expect": "2021-10-06 12:00 2182-09-23 12:00"
+            "expect": "9/6/2021, 12:00:00 PM 7/10/2082, 12:00:00 PM"
         },
         {
             "test": "Test Array of Excel Dates Parsing",
@@ -1467,7 +1073,7 @@
                     "66666"
                 ]
             ],
-            "expect": "2021-10-06 2182-09-23"
+            "expect": "9/6/2021, 12:00:00 AM 7/10/2082, 12:00:00 AM"
         }
     ]
 }

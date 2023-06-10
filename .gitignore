@@ -129,5 +129,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-tests/test.py
-tests/tests.js
+src/tests/test.py
+src/tests/tests.js

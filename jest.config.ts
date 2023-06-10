@@ -2,4 +2,9 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
+  testEnvironmentOptions: {
+    env: {
+      TZ: 'UTC'
+    }
+  }
 };
