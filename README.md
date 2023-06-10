@@ -83,18 +83,6 @@ var example: Input = ["foo",["bar"]]
 # Type Processors
 Type processors give you the ability to manipulate the string representation of the inserted data according to specific rules. Here's a detailed look at the existing type processors.
 
-## GLOBAL TYPE FLAGS
-Some typeprocessors share arguments, in which case they have a `global type flag` meaning that you can append them to any function that is a member of one, is you include the type flag in the parameter (usually at the end) it will also be executed.
-
-1. **Seperator Flag** `,` - Append this to any type processor argument, or by itself and it group numbers by comma seperators. Example:
-    - `{0:decimal:,}` - Can use it with no additional type parameter, example returns "1,000.00"
-    - `{0:currency:$,}` - Or use it with a type argument, example returns "$1,000.00"
-2. 
-**Make sure you only use it with one that subscribes to the global type flag*
-
-
----
-
 ## String - `:string`
 Returns the existing value. Additional type parameters are:
 - `:lower`: Converts the string to lowercase
@@ -115,11 +103,9 @@ Converts the string to a date, using the JavaScript `Date()` function to parse t
 *No additional processors for excel date*
 
 ## Decimal - `:decimal`
-*supports [`Seperator`] flag
 - `:rounded`: Rounds off the decimal number to the nearest integer. For example, {1:decimal:rounded} outputs 24 for an input of 23.6.
 
 ## Number - `:number`
-*supports [`Seperator`] flag
 - `:oddEven`: Outputs "odd" for odd numbers and "even" for even numbers.
 - `:positiveNegative`: Outputs "positive" for positive numbers, "negative" for negative numbers and "zero" for zero.
 - `:ordinal`: Outputs the ordinal form of the number. For example, `{1:number:ordinal}` for "23" outputs "23rd".
@@ -128,7 +114,6 @@ Converts the string to a date, using the JavaScript `Date()` function to parse t
 - `:inverse`: Gives the complement of the percentage. For example, {2:percent:inverse} outputs 77% for an input of 23%. 
 
 ## Currency - `:currency`
-*supports [`Seperator`] flag
 - `:format`: Allows the currency format to be specified. For example, {1:currency:format:£} outputs £100 for an input of 100.
 
 ## Boolean - `:bool`
