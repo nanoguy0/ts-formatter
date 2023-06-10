@@ -720,7 +720,7 @@
                     "25"
                 ]
             ],
-            "expect": "Names: JOHN, JANE, JACK, Ages: 20, 25, "
+            "expect": "Names: JOHN JANE JACK, Ages: 20 25"
         },
         {
             "test": "Test Array With Single Value",

@@ -87,7 +87,7 @@ export class Formatter {
 
         // Try parse the array position
         const arrayContext = this.tryParsePosition(arrayPosition, context);
-
+        
         if (typeof arrayContext != 'string') throw new Error('Invalid format string');
         result += this.tryResolveVariable(variableType2, variableOption2, arrayContext);
         continue;
@@ -145,7 +145,7 @@ export class Formatter {
 
     const positionNumber = parseInt(position);
     if (isNaN(positionNumber)) throw new Error('Prameter position is not a number');
-    if (positionNumber > content.length) 
+    if (positionNumber > content.length || content.length === 0 || positionNumber < 0 || !content[positionNumber]) 
       return ""; // for now we will have non stirct mode
     // throw new Error('Can not find parameter position');
 
