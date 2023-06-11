@@ -1,1079 +1,121 @@
-{
-    "tests": [
-        {
-            "test": "Test Simple String Format",
-            "format": "Hello {0}!",
-            "input": [
-                "TS-Formatter"
-            ],
-            "expect": "Hello TS-Formatter!"
-        },
-        {
-            "test": "Test Date Format",
-            "format": "The date is {0:date}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "The date is 6/9/2023, 9:05:11 PM"
-        },
-        {
-            "test": "Test Multiple Values",
-            "format": "{0} {1}",
-            "input": [
-                "Hello",
-                "World"
-            ],
-            "expect": "Hello World"
-        },
-        {
-            "test": "Test Decimal Format",
-            "format": "{0:decimal}",
-            "input": [
-                "23.5432"
-            ],
-            "expect": "23.54"
-        },
-        {
-            "test": "Test Upper String",
-            "format": "{0:string:upper}",
-            "input": [
-                "ts-formatter"
-            ],
-            "expect": "TS-FORMATTER"
-        },
-        {
-            "test": "Test Lower String",
-            "format": "{0:string:lower}",
-            "input": [
-                "TS-FORMATTER"
-            ],
-            "expect": "ts-formatter"
-        },
-        {
-            "test": "Test Capitalize String",
-            "format": "{0:string:capitalize}",
-            "input": [
-                "hello"
-            ],
-            "expect": "Hello"
-        },
-        {
-            "test": "Test Trim String",
-            "format": "{0:string:trim}",
-            "input": [
-                " hello "
-            ],
-            "expect": "hello"
-        },
-        {
-            "test": "Test Reverse String",
-            "format": "{0:string:reverse}",
-            "input": [
-                "hello"
-            ],
-            "expect": "olleh"
-        },
-        {
-            "test": "Test Array Input First Index",
-            "format": "{0:0}",
-            "input": [
-                [
-                    "test",
-                    "formatter"
-                ]
-            ],
-            "expect": "test"
-        },
-        {
-            "test": "Test Array Input Second Index",
-            "format": "{0:1}",
-            "input": [
-                [
-                    "test",
-                    "formatter"
-                ]
-            ],
-            "expect": "formatter"
-        },
-        {
-            "test": "Test Date Format with Year",
-            "format": "{0:date:yyyy}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "2023"
-        },
-        {
-            "test": "Test Date Format with Day",
-            "format": "{0:date:day}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "Friday"
-        },
-        {
-            "test": "Test Date Format with Month",
-            "format": "{0:date:month}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "June"
-        },
-        {
-            "test": "Test Date Format with ShortYear",
-            "format": "{0:date:shortYear}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "23"
-        },
-        {
-            "test": "Test Date Format with ISO",
-            "format": "{0:date:iso}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "2023-06-09T21:05:11.764Z"
-        },
-        {
-            "test": "Test Decimal Format with Rounded",
-            "format": "{0:decimal:rounded}",
-            "input": [
-                "23.6"
-            ],
-            "expect": "24"
-        },
-        {
-            "test": "Test Number Format with OddEven",
-            "format": "{0:number:oddEven}",
-            "input": [
-                "23"
-            ],
-            "expect": "odd"
-        },
-        {
-            "test": "Test Number Format with PositiveNegative",
-            "format": "{0:number:positiveNegative}",
-            "input": [
-                "-23"
-            ],
-            "expect": "negative"
-        },
-        {
-            "test": "Test Number Format with Ordinal",
-            "format": "{0:number:ordinal}",
-            "input": [
-                "23"
-            ],
-            "expect": "23rd"
-        },
-        {
-            "test": "Test Currency Format",
-            "format": "{0:currency:£}",
-            "input": [
-                "100"
-            ],
-            "expect": "£100.00"
-        },
-        {
-            "test": "Test Bool Format with YesNo",
-            "format": "{0:bool:yesno}",
-            "input": [
-                "true"
-            ],
-            "expect": "yes"
-        },
-        {
-            "test": "Test Bool Format with OnOff",
-            "format": "{0:bool:onoff}",
-            "input": [
-                "false"
-            ],
-            "expect": "off"
-        },
-        {
-            "test": "Test Bool Format with Empty",
-            "format": "{0:bool:empty}",
-            "input": [
-                ""
-            ],
-            "expect": "yes"
-        },
-        {
-            "test": "Test String Format with Array",
-            "format": "{Hello {0}!}",
-            "input": [
-                [
-                    "World",
-                    "Everyone"
-                ]
-            ],
-            "expect": "Hello World! Hello Everyone!"
-        },
-        {
-            "test": "Test Percent Format",
-            "format": "{0:percent}",
-            "input": [
-                "23"
-            ],
-            "expect": "23%"
-        },
-        {
-            "test": "Test Currency Format",
-            "format": "{0:currency}",
-            "input": [
-                "100"
-            ],
-            "expect": "$100.00"
-        },
-        {
-            "test": "Test Bool Format",
-            "format": "{0:bool}",
-            "input": [
-                "true"
-            ],
-            "expect": "true"
-        },
-        {
-            "test": "Test Number Format",
-            "format": "{0:number}",
-            "input": [
-                "23"
-            ],
-            "expect": "23"
-        },
-        {
-            "test": "Test Iterating Over Array",
-            "format": "{Name:{0:string:upper} Temp:{1:decimal:2}}",
-            "input": [
-                [
-                    "Main reactor",
-                    "Sub reactor"
-                ],
-                [
-                    "23.5432",
-                    "63.2"
-                ]
-            ],
-            "expect": "Name:MAIN REACTOR Temp:23.54 Name:SUB REACTOR Temp:63.20"
-        },
-        {
-            "test": "Test Decimal Format",
-            "format": "{0:decimal:2}",
-            "input": [
-                "23.5432"
-            ],
-            "expect": "23.54"
-        },
-        {
-            "test": "Test Format String in Array",
-            "format": "{0:0} {0:1}",
-            "input": [
-                [
-                    "Hello",
-                    "World"
-                ]
-            ],
-            "expect": "Hello World"
-        },
-        {
-            "test": "Test Format String in Nested Array",
-            "format": "{{0:string:upper}}",
-            "input": [
-                [
-                    "hello",
-                    "world"
-                ]
-            ],
-            "expect": "HELLO WORLD"
-        },
-        {
-            "test": "Test Type Processor on String",
-            "format": "{0:string:upper}",
-            "input": [
-                "hello"
-            ],
-            "expect": "HELLO"
-        },
-        {
-            "test": "Test Type Processor on Date",
-            "format": "{0:date:yyyy}",
-            "input": [
-                "2023-06-10"
-            ],
-            "expect": "2023"
-        },
-        {
-            "test": "Test Long Decimal",
-            "format": "{0:decimal:2}",
-            "input": [
-                "23.6789"
-            ],
-            "expect": "23.68"
-        },
-        {
-            "test": "Test Odd Number",
-            "format": "{0:number:oddEven}",
-            "input": [
-                "11"
-            ],
-            "expect": "odd"
-        },
-        {
-            "test": "Test Even Number",
-            "format": "{0:number:oddEven}",
-            "input": [
-                "12"
-            ],
-            "expect": "even"
-        },
-        {
-            "test": "Test Positive Number",
-            "format": "{0:number:positiveNegative}",
-            "input": [
-                "23"
-            ],
-            "expect": "positive"
-        },
-        {
-            "test": "Test Zero Number",
-            "format": "{0:number:positiveNegative}",
-            "input": [
-                "0"
-            ],
-            "expect": "zero"
-        },
-        {
-            "test": "Test Percent",
-            "format": "{0:percent}",
-            "input": [
-                "50"
-            ],
-            "expect": "50%"
-        },
-        {
-            "test": "Test Decimal to Percent",
-            "format": "{0:percent}",
-            "input": [
-                "0.5"
-            ],
-            "expect": "50%"
-        },
-        {
-            "test": "Test Date to Day",
-            "format": "{0:date:day}",
-            "input": [
-                "2023-06-10"
-            ],
-            "expect": "Saturday"
-        },
-        {
-            "test": "Test Date to Month",
-            "format": "{0:date:month}",
-            "input": [
-                "2023-06-10"
-            ],
-            "expect": "June"
-        },
-        {
-            "test": "Test Date to ShortYear",
-            "format": "{0:date:shortYear}",
-            "input": [
-                "2023-06-10"
-            ],
-            "expect": "23"
-        },
-        {
-            "test": "Test Date to ISO",
-            "format": "{0:date:iso}",
-            "input": [
-                "2023-06-10"
-            ],
-            "expect": "2023-06-10T00:00:00.000Z"
-        },
-        {
-            "test": "Test Array Index Format",
-            "format": "{0:1}",
-            "input": [
-                [
-                    "first",
-                    "second"
-                ]
-            ],
-            "expect": "second"
-        },
-        {
-            "test": "Test Two Arrays",
-            "format": "{0:0} {1:1}",
-            "input": [
-                [
-                    "Hello",
-                    "Goodbye"
-                ],
-                [
-                    "World",
-                    "Everyone"
-                ]
-            ],
-            "expect": "Hello Everyone"
-        },
-        {
-            "test": "Test Multi Element Array",
-            "format": "{{0}}",
-            "input": [
-                [
-                    "Hello",
-                    "World",
-                    "Everyone"
-                ]
-            ],
-            "expect": "Hello World Everyone"
-        },
-        {
-            "test": "Test String Format with Array and Index",
-            "format": "Hello {0:0}!",
-            "input": [
-                [
-                    "World",
-                    "Everyone"
-                ]
-            ],
-            "expect": "Hello World!"
-        },
-        {
-            "test": "Test Number with Leading Zero",
-            "format": "{0:number}",
-            "input": [
-                "09"
-            ],
-            "expect": "9"
-        },
-        {
-            "test": "Test Number with Decimal and Zero",
-            "format": "{0:decimal:2}",
-            "input": [
-                "9.0"
-            ],
-            "expect": "9.00"
-        },
-        {
-            "test": "Test Percent with Decimal",
-            "format": "{0:percent}",
-            "input": [
-                "0.123"
-            ],
-            "expect": "12.3%"
-        },
-        {
-            "test": "Test Negative Percent",
-            "format": "{0:percent}",
-            "input": [
-                "-0.5"
-            ],
-            "expect": "-50%"
-        },
-        {
-            "test": "Test Bool Empty with Non-Empty String",
-            "format": "{0:bool:empty}",
-            "input": [
-                "Hello"
-            ],
-            "expect": "no"
-        },
-        {
-            "test": "Test Currency with Currency Symbol",
-            "format": "{0:currency:$}",
-            "input": [
-                "1234.56"
-            ],
-            "expect": "$1,234.56"
-        },
-        {
-            "test": "Test Negative Currency",
-            "format": "{0:currency}",
-            "input": [
-                "-1234.56"
-            ],
-            "expect": "-$1,234.56"
-        },
-        {
-            "test": "Test Zero Currency",
-            "format": "{0:currency}",
-            "input": [
-                "0"
-            ],
-            "expect": "$0.00"
-        },
-        {
-            "test": "Test String Reverse",
-            "format": "{0:string:reverse}",
-            "input": [
-                "Hello"
-            ],
-            "expect": "olleH"
-        },
-        {
-            "test": "Test Large Number with Comma",
-            "format": "{0:number:comma}",
-            "input": [
-                "1000000"
-            ],
-            "expect": "1,000,000"
-        },
-        {
-            "test": "Test Empty String",
-            "format": "{0}",
-            "input": [
-                ""
-            ],
-            "expect": ""
-        },
-        {
-            "test": "Test Empty Array",
-            "format": "{0:0}",
-            "input": [
-                []
-            ],
-            "expect": ""
-        },
-        {
-            "test": "Test Array Out of Bound Index",
-            "format": "{0:1}",
-            "input": [
-                [
-                    "Hello"
-                ]
-            ],
-            "expect": ""
-        },
-        {
-            "test": "Test Non-Processor String",
-            "format": "{0}",
-            "input": [
-                "{0:currency:£}"
-            ],
-            "expect": "{0:currency:£}"
-        },
-        {
-            "test": "Test String Without Placeholder",
-            "format": "Hello World!",
-            "input": [],
-            "expect": "Hello World!"
-        },
-        {
-            "test": "Test String With Only Placeholder",
-            "format": "{0}",
-            "input": [
-                "Hello World!"
-            ],
-            "expect": "Hello World!"
-        },
-        {
-            "test": "Test Word Boundary",
-            "format": "Hello {0}",
-            "input": [
-                "World"
-            ],
-            "expect": "Hello World"
-        },
-        {
-            "test": "Test Inside Words",
-            "format": "He{0}o, W{1}ld!",
-            "input": [
-                "ll",
-                "or"
-            ],
-            "expect": "Hello, World!"
-        },
-        {
-            "test": "Test String Concatenation",
-            "format": "{0}{1}{2}",
-            "input": [
-                "He",
-                "ll",
-                "o"
-            ],
-            "expect": "Hello"
-        },
-        {
-            "test": "Test Empty Separator",
-            "format": "{0}{1}",
-            "input": [
-                "Hello",
-                "World"
-            ],
-            "expect": "HelloWorld"
-        },
-        {
-            "test": "Test Punctuation Marks",
-            "format": "{0}, {1}!",
-            "input": [
-                "Hello",
-                "World"
-            ],
-            "expect": "Hello, World!"
-        },
-        {
-            "test": "Test Mixed Separators",
-            "format": "{0} {1}{2}, {3}!",
-            "input": [
-                "Hello",
-                "",
-                "World",
-                "How are you"
-            ],
-            "expect": "Hello World, How are you!"
-        },
-        {
-            "test": "Test Double Quotes",
-            "format": "\"{0}\"",
-            "input": [
-                "Hello"
-            ],
-            "expect": "\"Hello\""
-        },
-        {
-            "test": "Test Single Quotes",
-            "format": "'{0}'",
-            "input": [
-                "Hello"
-            ],
-            "expect": "'Hello'"
-        },
-        {
-            "test": "Test Special Characters",
-            "format": "{0}@#^&()!",
-            "input": [
-                "Hello"
-            ],
-            "expect": "Hello@#^&()!"
-        },
-        {
-            "test": "Test Escaped Characters",
-            "format": "{0}\n{1}",
-            "input": [
-                "Hello",
-                "World"
-            ],
-            "expect": "Hello\nWorld"
-        },
-        {
-            "test": "Test Long String",
-            "format": "{0} {1} {2} {3} {4} {5} {6} {7} {8} {9}",
-            "input": [
-                "This",
-                "is",
-                "a",
-                "long",
-                "string",
-                "with",
-                "multiple",
-                "words",
-                "and",
-                "placeholders"
-            ],
-            "expect": "This is a long string with multiple words and placeholders"
-        },
-        {
-            "test": "Test Repeated Placeholders",
-            "format": "{0} {0}",
-            "input": [
-                "Hello"
-            ],
-            "expect": "Hello Hello"
-        },
-        {
-            "test": "Test Mixed Placeholders",
-            "format": "{0} {1} {0} {1}",
-            "input": [
-                "Hello",
-                "World"
-            ],
-            "expect": "Hello World Hello World"
-        },
-        {
-            "test": "Test Multiple Arrays",
-            "format": "Names: {{0:string:upper}}, Temperatures: {{1:decimal:2}}",
-            "input": [
-                [
-                    "John",
-                    "Jane"
-                ],
-                [
-                    "20.1542",
-                    "25.8432"
-                ]
-            ],
-            "expect": "Names: JOHN JANE, Temperatures: 20.15 25.84"
-        },
-        {
-            "test": "Test Unbalanced Array Sizes",
-            "format": "Names: {{0:string:upper}}, Ages: {{1}}",
-            "input": [
-                [
-                    "John",
-                    "Jane",
-                    "Jack"
-                ],
-                [
-                    "20",
-                    "25"
-                ]
-            ],
-            "expect": "Names: JOHN JANE JACK, Ages: 20 25"
-        },
-        {
-            "test": "Test Array With Single Value",
-            "format": "Names: {{0}}, Ages: {{1}}",
-            "input": [
-                [
-                    "John"
-                ],
-                [
-                    "20",
-                    "25"
-                ]
-            ],
-            "expect": "Names: John, Ages: 20 25"
-        },
-        {
-            "test": "Test Nested Array Formatting",
-            "format": "{{0:0}} and {{0:1}}",
-            "input": [
-                [
-                    "John",
-                    "Jane"
-                ]
-            ],
-            "expect": "John and Jane"
-        },
-        {
-            "test": "Test Complex Format With Arrays",
-            "format": "Details: {Name: {0:string:capitalize}, Age: {1}, Gender: {2:string:upper}}",
-            "input": [
-                [
-                    "john",
-                    "jane",
-                    "jack"
-                ],
-                [
-                    "20",
-                    "25",
-                    "30"
-                ],
-                [
-                    "male",
-                    "female",
-                    "male"
-                ]
-            ],
-            "expect": "Details: Name: John, Age: 20, Gender: MALE Name: Jane, Age: 25, Gender: FEMALE Name: Jack, Age: 30, Gender: MALE"
-        },
-        {
-            "test": "Test Mixed Single Value and Array",
-            "format": "Name: {0}, Preferences: {{1}}",
-            "input": [
-                "John",
-                [
-                    "Reading",
-                    "Writing",
-                    "Running"
-                ]
-            ],
-            "expect": "Name: John, Preferences: Reading Writing Running"
-        },
-        {
-            "test": "Test Empty Arrays",
-            "format": "Names: {{0}}, Ages: {{1}}",
-            "input": [
-                [],
-                []
-            ],
-            "expect": "Names: , Ages: "
-        },
-        {
-            "test": "Test Single Value In Arrays",
-            "format": "Names: {{0}}, Ages: {{1}}",
-            "input": [
-                [
-                    "John"
-                ],
-                [
-                    "20"
-                ]
-            ],
-            "expect": "Names: John, Ages: 20"
-        },
-        {
-            "test": "Test Array Indexing",
-            "format": "{0:0} and {0:1}",
-            "input": [
-                [
-                    "John",
-                    "Jane"
-                ]
-            ],
-            "expect": "John and Jane"
-        },
-        {
-            "test": "Test Array Indexing With Unbalanced Sizes",
-            "format": "{0:0}, {0:1}, and {0:2}",
-            "input": [
-                [
-                    "John",
-                    "Jane"
-                ]
-            ],
-            "expect": "John, Jane, and "
-        },
-        {
-            "test": "Test String Processor Lowercase",
-            "format": "{0:string:lower}",
-            "input": [
-                "HELLO"
-            ],
-            "expect": "hello"
-        },
-        {
-            "test": "Test Date Processor",
-            "format": "{0:date}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "6/9/2023, 9:05:11 PM"
-        },
-        {
-            "test": "Test Decimal Processor",
-            "format": "{0:decimal}",
-            "input": [
-                "23.5432"
-            ],
-            "expect": "23.54"
-        },
-        {
-            "test": "Test Decimal Processor Rounded",
-            "format": "{0:decimal:rounded}",
-            "input": [
-                "23.5432"
-            ],
-            "expect": "24"
-        },
-        {
-            "test": "Test Percent Processor Inverse",
-            "format": "{0:percent:inverse}",
-            "input": [
-                "23"
-            ],
-            "expect": "77%"
-        },
-        {
-            "test": "Test Bool Processor onoff",
-            "format": "{0:bool:onoff}",
-            "input": [
-                "true"
-            ],
-            "expect": "on"
-        },
-        {
-            "test": "Test Empty Arrays",
-            "format": "{{0}} {{1}}",
-            "input": [
-                [],
-                []
-            ],
-            "expect": " "
-        },
-        {
-            "test": "Test Single Element Arrays",
-            "format": "{{0}} {{1}}",
-            "input": [
-                [
-                    "Hello"
-                ],
-                [
-                    "World"
-                ]
-            ],
-            "expect": "Hello World"
-        },
-        {
-            "test": "Test Arrays With Different Lengths",
-            "format": "{{0} {1}}",
-            "input": [
-                [
-                    "Hello",
-                    "Goodbye"
-                ],
-                [
-                    "World"
-                ]
-            ],
-            "expect": "Hello World Goodbye "
-        },
-        {
-            "test": "Test Array Indexing Beyond Bounds",
-            "format": "{0:2}",
-            "input": [
-                [
-                    "Hello",
-                    "World"
-                ]
-            ],
-            "expect": ""
-        },
-        {
-            "test": "Test Nested Array With Different Lengths",
-            "format": "{{0} {1}}",
-            "input": [
-                [
-                    "Hello",
-                    "Goodbye"
-                ],
-                [
-                    "World"
-                ]
-            ],
-            "expect": "Hello World Goodbye "
-        },
-        {
-            "test": "Test Array of Numbers",
-            "format": "{{0:number}}",
-            "input": [
-                [
-                    "1",
-                    "2",
-                    "3",
-                    "4"
-                ]
-            ],
-            "expect": "1 2 3 4"
-        },
-        {
-            "test": "Test Array With Mixed Types",
-            "format": "{{0}}",
-            "input": [
-                [
-                    "Hello",
-                    "2",
-                    "true"
-                ]
-            ],
-            "expect": "Hello 2 true"
-        },
-        {
-            "test": "Test Array With Undefined Value",
-            "format": "{{0}}",
-            "input": [
-                [
-                    "Hello",
-                    "",
-                    "World"
-                ]
-            ],
-            "expect": "Hello World"
-        },
-        {
-            "test": "Test Array With Boolean Values",
-            "format": "{{0:bool:yesno}}",
-            "input": [
-                [
-                    "true",
-                    "false"
-                ]
-            ],
-            "expect": "yes no"
-        },
-        {
-            "test": "Test Array With Date Values",
-            "format": "{{0:date}}",
-            "input": [
-                [
-                    "2023-06-09T21:05:11.764Z",
-                    "2022-12-25T12:00:00.000Z"
-                ]
-            ],
-            "expect": "6/9/2023, 9:05:11 PM 12/25/2022, 12:00:00 PM"
-        },
-        {
-            "test": "Test Date Formatting with Year",
-            "format": "{0:date:Year- yyyy}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "Year- 2023"
-        },
-        {
-            "test": "Test Date Formatting with Full Date",
-            "format": "{0:date:Full Date- MM/dd/yyyy}",
-            "input": [
-                "2023-06-09T21:05:11.764Z"
-            ],
-            "expect": "Full Date- 06/09/2023"
-        },
-        {
-            "test": "Test Array of Dates Formatting with Day",
-            "format": "{{0:date:day}}",
-            "input": [
-                [
-                    "2023-06-09T21:05:11.764Z",
-                    "2022-12-25T12:00:00.000Z"
-                ]
-            ],
-            "expect": "Friday Sunday"
-        },
-        {
-            "test": "Test Basic Excel Date Parsing",
-            "format": "{0:exceldate}",
-            "input": [
-                "44444"
-            ],
-            "expect": "9/6/2021, 12:00:00 AM"
-        },
-        {
-            "test": "Test Excel Date with Time Parsing",
-            "format": "{0:exceldate}",
-            "input": [
-                "44444.875"
-            ],
-            "expect": "9/6/2021, 9:00:00 PM"
-        },
-        {
-            "test": "Test Excel Date in the Past Parsing",
-            "format": "{0:exceldate}",
-            "input": [
-                "22222"
-            ],
-            "expect": "11/3/1960, 12:00:00 AM"
-        },
-        {
-            "test": "Test Excel Date in the Future Parsing",
-            "format": "{0:exceldate}",
-            "input": [
-                "66666"
-            ],
-            "expect": "7/10/2082, 12:00:00 AM"
-        },
-        {
-            "test": "Test Array of Excel Dates with Time Parsing",
-            "format": "{{0:exceldate}}",
-            "input": [
-                [
-                    "44444.5",
-                    "66666.5"
-                ]
-            ],
-            "expect": "9/6/2021, 12:00:00 PM 7/10/2082, 12:00:00 PM"
-        },
-        {
-            "test": "Test Array of Excel Dates Parsing",
-            "format": "{{0:exceldate}}",
-            "input": [
-                [
-                    "44444",
-                    "66666"
-                ]
-            ],
-            "expect": "9/6/2021, 12:00:00 AM 7/10/2082, 12:00:00 AM"
-        }
-    ]
+{ 
+    "tests": [ 
+        { "test": "Test Simple String Format", "format": "Hello {0}!", "input": [ "TS-Formatter" ], "expect": "Hello TS-Formatter!" },
+        { "test": "Test Date Format", "format": "The date is {0:date}", "input": [ "2023-06-09T21:05:11.764Z" ], "expect": "The date is 6/9/2023, 9:05:11 PM" },
+        { "test": "Test Multiple Values", "format": "{0} {1}", "input": [ "Hello", "World" ], "expect": "Hello World" },
+        { "test": "Test Decimal Format", "format": "{0:decimal}", "input": [ "23.5432" ], "expect": "23.54" },
+        { "test": "Test Upper String", "format": "{0:string:upper}", "input": [ "ts-formatter" ], "expect": "TS-FORMATTER" },
+        { "test": "Test Lower String", "format": "{0:string:lower}", "input": [ "TS-FORMATTER" ], "expect": "ts-formatter" },
+        { "test": "Test Capitalize String", "format": "{0:string:capitalize}", "input": [ "hello" ], "expect": "Hello" },
+        { "test": "Test Trim String", "format": "{0:string:trim}", "input": [ " hello " ], "expect": "hello" },
+        { "test": "Test Reverse String", "format": "{0:string:reverse}", "input": [ "hello" ], "expect": "olleh" },
+        { "test": "Test Array Input First Index", "format": "{0:0}", "input": [ [ "test", "formatter" ] ], "expect": "test" },
+        { "test": "Test Array Input Second Index", "format": "{0:1}", "input": [ [ "test", "formatter" ] ], "expect": "formatter" },
+        { "test": "Test Date Format with Year", "format": "{0:date:yyyy}", "input": [ "2023-06-09T21:05:11.764Z" ], "expect": "2023" },
+        { "test": "Test Date Format with Day", "format": "{0:date:day}", "input": [ "2023-06-09T21:05:11.764Z" ], "expect": "Friday" },
+        { "test": "Test Date Format with Month", "format": "{0:date:month}", "input": [ "2023-06-09T21:05:11.764Z" ], "expect": "June" },
+        { "test": "Test Date Format with ShortYear", "format": "{0:date:shortYear}", "input": [ "2023-06-09T21:05:11.764Z" ], "expect": "23" },
+        { "test": "Test Date Format with ISO", "format": "{0:date:iso}", "input": [ "2023-06-09T21:05:11.764Z" ], "expect": "2023-06-09T21:05:11.764Z" },
+        { "test": "Test Decimal Format with Rounded", "format": "{0:decimal:rounded}", "input": [ "23.6" ], "expect": "24" },
+        { "test": "Test Number Format with OddEven", "format": "{0:number:oddEven}", "input": [ "23" ], "expect": "odd" },
+        { "test": "Test Number Format with PositiveNegative", "format": "{0:number:positiveNegative}", "input": [ "-23" ], "expect": "negative" },
+        { "test": "Test Number Format with Ordinal", "format": "{0:number:ordinal}", "input": [ "23" ], "expect": "23rd" },
+        { "test": "Test Currency Format", "format": "{0:currency:£}", "input": [ "100" ], "expect": "£100.00" },
+        { "test": "Test Bool Format with YesNo", "format": "{0:bool:yesno}", "input": [ "true" ], "expect": "yes" },
+        { "test": "Test Bool Format with OnOff", "format": "{0:bool:onoff}", "input": [ "false" ], "expect": "off" },
+        { "test": "Test Bool Format with Empty", "format": "{0:bool:empty}", "input": [ "" ], "expect": "yes" },
+        { "test": "Test String Format with Array", "format": "{Hello {0}!}", "input": [ [ "World", "Everyone" ] ], "expect": "Hello World! Hello Everyone!" },
+        { "test": "Test Percent Format", "format": "{0:percent}", "input": [ "23" ], "expect": "23%" },
+        { "test": "Test Currency Format", "format": "{0:currency}", "input": [ "100" ], "expect": "$100.00" },
+        { "test": "Test Bool Format", "format": "{0:bool}", "input": [ "true" ], "expect": "true" },
+        { "test": "Test Number Format", "format": "{0:number}", "input": [ "23" ], "expect": "23" },
+        { "test": "Test Iterating Over Array", "format": "{Name:{0:string:upper} Temp:{1:decimal:2}}", "input": [ [ "Main reactor", "Sub reactor" ], [ "23.5432", "63.2" ] ], "expect": "Name:MAIN REACTOR Temp:23.54 Name:SUB REACTOR Temp:63.20" },
+        { "test": "Test Decimal Format", "format": "{0:decimal:2}", "input": [ "23.5432" ], "expect": "23.54" },
+        { "test": "Test Format String in Array", "format": "{0:0} {0:1}", "input": [ [ "Hello", "World" ] ], "expect": "Hello World" },
+        { "test": "Test Format String in Nested Array", "format": "{{0:string:upper}}", "input": [ [ "hello", "world" ] ], "expect": "HELLO WORLD" },
+        { "test": "Test Type Processor on String", "format": "{0:string:upper}", "input": [ "hello" ], "expect": "HELLO" },
+        { "test": "Test Type Processor on Date", "format": "{0:date:yyyy}", "input": [ "2023-06-10" ], "expect": "2023" },
+        { "test": "Test Long Decimal", "format": "{0:decimal:2}", "input": [ "23.6789" ], "expect": "23.68" },
+        { "test": "Test Odd Number", "format": "{0:number:oddEven}", "input": [ "11" ], "expect": "odd" },
+        { "test": "Test Even Number", "format": "{0:number:oddEven}", "input": [ "12" ], "expect": "even" },
+        { "test": "Test Positive Number", "format": "{0:number:positiveNegative}", "input": [ "23" ], "expect": "positive" },
+        { "test": "Test Zero Number", "format": "{0:number:positiveNegative}", "input": [ "0" ], "expect": "zero" },
+        { "test": "Test Percent", "format": "{0:percent}", "input": [ "50" ], "expect": "50%" },
+        { "test": "Test Decimal to Percent", "format": "{0:percent}", "input": [ "0.5" ], "expect": "50%" },
+        { "test": "Test Date to Day", "format": "{0:date:day}", "input": [ "2023-06-10" ], "expect": "Saturday" },
+        { "test": "Test Date to Month", "format": "{0:date:month}", "input": [ "2023-06-10" ], "expect": "June" },
+        { "test": "Test Date to ShortYear", "format": "{0:date:shortYear}", "input": [ "2023-06-10" ], "expect": "23" },
+        { "test": "Test Date to ISO", "format": "{0:date:iso}", "input": [ "2023-06-10" ], "expect": "2023-06-10T00:00:00.000Z" },
+        { "test": "Test Array Index Format", "format": "{0:1}", "input": [ [ "first", "second" ] ], "expect": "second" },
+        { "test": "Test Two Arrays", "format": "{0:0} {1:1}", "input": [ [ "Hello", "Goodbye" ], [ "World", "Everyone" ] ], "expect": "Hello Everyone" },
+        { "test": "Test Multi Element Array", "format": "{{0}}", "input": [ [ "Hello", "World", "Everyone" ] ], "expect": "Hello World Everyone" },
+        { "test": "Test String Format with Array and Index", "format": "Hello {0:0}!", "input": [ [ "World", "Everyone" ] ], "expect": "Hello World!" },
+        { "test": "Test Number with Leading Zero", "format": "{0:number}", "input": [ "09" ], "expect": "9" },
+        { "test": "Test Number with Decimal and Zero", "format": "{0:decimal:2}", "input": [ "9.0" ], "expect": "9.00" },
+        { "test": "Test Percent with Decimal", "format": "{0:percent}", "input": [ "0.123" ], "expect": "12.3%" },
+        { "test": "Test Negative Percent", "format": "{0:percent}", "input": [ "-0.5" ], "expect": "-50%" },
+        { "test": "Test Bool Empty with Non-Empty String", "format": "{0:bool:empty}", "input": [ "Hello" ], "expect": "no" },
+        { "test": "Test Currency with Currency Symbol", "format": "{0:currency:$}", "input": [ "1234.56" ], "expect": "$1,234.56" },
+        { "test": "Test Negative Currency", "format": "{0:currency}", "input": [ "-1234.56" ], "expect": "-$1,234.56" },
+        { "test": "Test Zero Currency", "format": "{0:currency}", "input": [ "0" ], "expect": "$0.00" },
+        { "test": "Test String Reverse", "format": "{0:string:reverse}", "input": [ "Hello" ], "expect": "olleH" },
+        { "test": "Test Large Number with Comma", "format": "{0:number:comma}", "input": [ "1000000" ], "expect": "1,000,000" },
+        { "test": "Test Empty String", "format": "{0}", "input": [ "" ], "expect": "" },
+        { "test": "Test Empty Array", "format": "{0:0}", "input": [ [] ], "expect": "" },
+        { "test": "Test Array Out of Bound Index", "format": "{0:1}", "input": [ [ "Hello" ] ], "expect": "" },
+        { "test": "Test Non-Processor String", "format": "{0}", "input": [ "{0:currency:£}" ], "expect": "{0:currency:£}" },
+        { "test": "Test String Without Placeholder", "format": "Hello World!", "input": [], "expect": "Hello World!" },
+        { "test": "Test String With Only Placeholder", "format": "{0}", "input": [ "Hello World!" ], "expect": "Hello World!" },
+        { "test": "Test Word Boundary", "format": "Hello {0}", "input": [ "World" ], "expect": "Hello World" },
+        { "test": "Test Inside Words", "format": "He{0}o, W{1}ld!", "input": [ "ll", "or" ], "expect": "Hello, World!" },
+        { "test": "Test String Concatenation", "format": "{0}{1}{2}", "input": [ "He", "ll", "o" ], "expect": "Hello" },
+        { "test": "Test Empty Separator", "format": "{0}{1}", "input": [ "Hello", "World" ], "expect": "HelloWorld" },
+        { "test": "Test Punctuation Marks", "format": "{0}, {1}!", "input": [ "Hello", "World" ], "expect": "Hello, World!" },
+        { "test": "Test Mixed Separators", "format": "{0} {1}{2}, {3}!", "input": [ "Hello", "", "World", "How are you" ], "expect": "Hello World, How are you!" },
+        { "test": "Test Double Quotes", "format": "\"{0}\"", "input": [ "Hello" ], "expect": "\"Hello\"" },
+        { "test": "Test Single Quotes", "format": "'{0}'", "input": [ "Hello" ], "expect": "'Hello'" },
+        { "test": "Test Special Characters", "format": "{0}@#^&()!", "input": [ "Hello" ], "expect": "Hello@#^&()!" },
+        { "test": "Test Escaped Characters", "format": "{0}\n{1}", "input": [ "Hello", "World" ], "expect": "Hello\nWorld" },
+        { "test": "Test Long String", "format": "{0} {1} {2} {3} {4} {5} {6} {7} {8} {9}", "input": [ "This", "is", "a", "long", "string", "with", "multiple", "words", "and", "placeholders" ], "expect": "This is a long string with multiple words and placeholders" },
+        { "test": "Test Repeated Placeholders", "format": "{0} {0}", "input": [ "Hello" ], "expect": "Hello Hello" },
+        { "test": "Test Mixed Placeholders", "format": "{0} {1} {0} {1}", "input": [ "Hello", "World" ], "expect": "Hello World Hello World" },
+        { "test": "Test Multiple Arrays", "format": "Names: {{0:string:upper}}, Temperatures: {{1:decimal:2}}", "input": [ [ "John", "Jane" ], [ "20.1542", "25.8432" ] ], "expect": "Names: JOHN JANE, Temperatures: 20.15 25.84" },
+        { "test": "Test Unbalanced Array Sizes", "format": "Names: {{0:string:upper}}, Ages: {{1}}", "input": [ [ "John", "Jane", "Jack" ], [ "20", "25" ] ], "expect": "Names: JOHN JANE JACK, Ages: 20 25" },
+        { "test": "Test Array With Single Value", "format": "Names: {{0}}, Ages: {{1}}", "input": [ [ "John" ], [ "20", "25" ] ], "expect": "Names: John, Ages: 20 25" },
+        { "test": "Test Complex Format With Arrays", "format": "Details: {Name: {0:string:capitalize}, Age: {1}, Gender: {2:string:upper}}", "input": [ [ "john", "jane", "jack" ], [ "20", "25", "30" ], [ "male", "female", "male" ] ], "expect": "Details: Name: John, Age: 20, Gender: MALE Name: Jane, Age: 25, Gender: FEMALE Name: Jack, Age: 30, Gender: MALE" },
+        { "test": "Test Mixed Single Value and Array", "format": "Name: {0}, Preferences: {{1}}", "input": [ "John", [ "Reading", "Writing", "Running" ] ], "expect": "Name: John, Preferences: Reading Writing Running" },
+        { "test": "Test Empty Arrays", "format": "Names: {{0}}, Ages: {{1}}", "input": [ [], [] ], "expect": "Names: , Ages: " },
+        { "test": "Test Single Value In Arrays", "format": "Names: {{0}}, Ages: {{1}}", "input": [ [ "John" ], [ "20" ] ], "expect": "Names: John, Ages: 20" },
+        { "test": "Test Array Indexing", "format": "{0:0} and {0:1}", "input": [ [ "John", "Jane" ] ], "expect": "John and Jane" },
+        { "test": "Test Array Indexing With Unbalanced Sizes", "format": "{0:0}, {0:1}, and {0:2}", "input": [ [ "John", "Jane" ] ], "expect": "John, Jane, and " },
+        { "test": "Test String Processor Lowercase", "format": "{0:string:lower}", "input": [ "HELLO" ], "expect": "hello" },
+        { "test": "Test Date Processor", "format": "{0:date}", "input": [ "2023-06-09T21:05:11.764Z" ], "expect": "6/9/2023, 9:05:11 PM" },
+        { "test": "Test Decimal Processor", "format": "{0:decimal}", "input": [ "23.5432" ], "expect": "23.54" },
+        { "test": "Test Decimal Processor Rounded", "format": "{0:decimal:rounded}", "input": [ "23.5432" ], "expect": "24" },
+        { "test": "Test Percent Processor Inverse", "format": "{0:percent:inverse}", "input": [ "23" ], "expect": "77%" },
+        { "test": "Test Bool Processor onoff", "format": "{0:bool:onoff}", "input": [ "true" ], "expect": "on" },
+        { "test": "Test Empty Arrays", "format": "{{0}} {{1}}", "input": [ [], [] ], "expect": " " },
+        { "test": "Test Single Element Arrays", "format": "{{0}} {{1}}", "input": [ [ "Hello" ], [ "World" ] ], "expect": "Hello World" },
+        { "test": "Test Arrays With Different Lengths", "format": "{{0} {1}}", "input": [ [ "Hello", "Goodbye" ], [ "World" ] ], "expect": "Hello World Goodbye " },
+        { "test": "Test Array Indexing Beyond Bounds", "format": "{0:2}", "input": [ [ "Hello", "World" ] ], "expect": "" },
+        { "test": "Test Nested Array With Different Lengths", "format": "{{0} {1}}", "input": [ [ "Hello", "Goodbye" ], [ "World" ] ], "expect": "Hello World Goodbye " },
+        { "test": "Test Array of Numbers", "format": "{{0:number}}", "input": [ [ "1", "2", "3", "4" ] ], "expect": "1 2 3 4" },
+        { "test": "Test Array With Mixed Types", "format": "{{0}}", "input": [ [ "Hello", "2", "true" ] ], "expect": "Hello 2 true" },
+        { "test": "Test Array With Undefined Value", "format": "{{0}}", "input": [ [ "Hello", "", "World" ] ], "expect": "Hello World" },
+        { "test": "Test Array With Boolean Values", "format": "{{0:bool:yesno}}", "input": [ [ "true", "false" ] ], "expect": "yes no" },
+        { "test": "Test Array With Date Values", "format": "{{0:date}}", "input": [ [ "2023-06-09T21:05:11.764Z", "2022-12-25T12:00:00.000Z" ] ], "expect": "6/9/2023, 9:05:11 PM 12/25/2022, 12:00:00 PM" },
+        { "test": "Test Date Formatting with Year", "format": "{0:date:Year- yyyy}", "input": [ "2023-06-09T21:05:11.764Z" ], "expect": "Year- 2023" },
+        { "test": "Test Date Formatting with Full Date", "format": "{0:date:Full Date- MM/dd/yyyy}", "input": [ "2023-06-09T21:05:11.764Z" ], "expect": "Full Date- 06/09/2023" },
+        { "test": "Test Array of Dates Formatting with Day", "format": "{{0:date:day}}", "input": [ [ "2023-06-09T21:05:11.764Z", "2022-12-25T12:00:00.000Z" ] ], "expect": "Friday Sunday" },
+        { "test": "Test Basic Excel Date Parsing", "format": "{0:exceldate}", "input": [ "44444" ], "expect": "9/6/2021, 12:00:00 AM" },
+        { "test": "Test Excel Date with Time Parsing", "format": "{0:exceldate}", "input": [ "44444.875" ], "expect": "9/6/2021, 9:00:00 PM" },
+        { "test": "Test Excel Date in the Past Parsing", "format": "{0:exceldate}", "input": [ "22222" ], "expect": "11/3/1960, 12:00:00 AM" },
+        { "test": "Test Excel Date in the Future Parsing", "format": "{0:exceldate}", "input": [ "66666" ], "expect": "7/10/2082, 12:00:00 AM" },
+        { "test": "Test Array of Excel Dates with Time Parsing", "format": "{{0:exceldate}}", "input": [ [ "44444.5", "66666.5" ] ], "expect": "9/6/2021, 12:00:00 PM 7/10/2082, 12:00:00 PM" },
+        { "test": "Test Array of Excel Dates Parsing", "format": "{{0:exceldate}}", "input": [ [ "44444", "66666" ] ], "expect": "9/6/2021, 12:00:00 AM 7/10/2082, 12:00:00 AM" } 
+    ], 
+    "bad_syntax": [ 
+        {"test": "Should disallow internal array matchers","format": "{ {0:0} { {0:1} }", "input": [], "throws": true},
+        { "test": "Disallow array position if the only array in itterator", "format": "{{0:0}} and {{0:1}}", "input": [ [ "John", "Jane" ] ], "throws": true }
+        ] 
 }

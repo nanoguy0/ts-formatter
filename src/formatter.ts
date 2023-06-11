@@ -224,7 +224,8 @@ export class Formatter {
       case 'bool':
         return this.tryParseBool(context, variableOption);
       default:
-        throw new Error('Invalid format type');
+        return context;
+        // throw new Error('Invalid format type');
     }
   }
 
