@@ -22,7 +22,7 @@ console.log(format.format(formatString, input));
 | - | - | - |
 | `"Hello {0}!"` | `["World"]` | `"Hello World"` |
 | `"Hello {0}! The time is {1:date}!"` | `["World", "2023-06-09T21:05:11.764Z"]` | `"Hello World! The time is 2:05 PM!"` |
-| `"Core reactor is at {2:percent}! Current Reactor Heats:{{ Name:{0:upper} Temp:{1:decimal:2}}}"` | `[["Main reactor", "Sub reactor"], ["23.5432","63.2"], "23.0"]` | `"Core reactor is at 23%! Current Reactor Heats: Name:Main reactor Temp:23.54 Name:Sub reactor Temp:63.20"` |
+| `"Core reactor is at {2:percent}! Current Reactor Heats:{ Name:{0:upper} Temp:{1:decimal:2}}"` | `[["Main reactor", "Sub reactor"], ["23.5432","63.2"], "23.0"]` | `"Core reactor is at 23%! Current Reactor Heats: Name:Main reactor Temp:23.54 Name:Sub reactor Temp:63.20"` |
 | `"The first time to do is {0:0}!"` | `[["eat","sleep","work"]]` | `"The first time to do is eat!"` |
 
 # Constructing the Inputs

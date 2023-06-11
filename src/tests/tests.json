@@ -244,7 +244,7 @@
         },
         {
             "test": "Test Iterating Over Array",
-            "format": "{{ Name:{0:string:upper} Temp:{1:decimal:2}}}",
+            "format": "{Name:{0:string:upper} Temp:{1:decimal:2}}",
             "input": [
                 [
                     "Main reactor",
@@ -704,7 +704,7 @@
                     "25.8432"
                 ]
             ],
-            "expect": "Names: JOHN, JANE, Temperatures: 20.15, 25.84"
+            "expect": "Names: JOHN JANE, Temperatures: 20.15 25.84"
         },
         {
             "test": "Test Unbalanced Array Sizes",
@@ -749,7 +749,7 @@
         },
         {
             "test": "Test Complex Format With Arrays",
-            "format": "Details: {{ Name: {0:string:capitalize}, Age: {1}, Gender: {2:string:upper} }}",
+            "format": "Details: {Name: {0:string:capitalize}, Age: {1}, Gender: {2:string:upper}}",
             "input": [
                 [
                     "john",
@@ -767,7 +767,7 @@
                     "male"
                 ]
             ],
-            "expect": "Details: Name: John, Age: 20, Gender: MALE, Name: Jane, Age: 25, Gender: FEMALE, Name: Jack, Age: 30, Gender: MALE"
+            "expect": "Details: Name: John, Age: 20, Gender: MALE Name: Jane, Age: 25, Gender: FEMALE Name: Jack, Age: 30, Gender: MALE"
         },
         {
             "test": "Test Mixed Single Value and Array",
